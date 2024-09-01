@@ -5,6 +5,7 @@
     "main": "index.js",
     "author": "Paul Sweeney",
     "license": "MIT",
+    "types": "./index.d.ts",
     "scripts": {
         "test:ui": "mocha-istanbul-ui \"test/cases/*.js\" --instrument --watch",
         "test": "mocha-istanbul-ui \"test/cases/*.js\" --instrument --console --once"
