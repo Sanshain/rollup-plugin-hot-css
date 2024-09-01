@@ -140,7 +140,8 @@ module.exports = function (options) {
         loaders: options.loaders || [],
         hot: options.hot,
         url: options.url !== undefined? options.url : true,
-        publicPath: options.publicPath || ''
+        publicPath: options.publicPath || '',
+        include: options.include
     };
 
     let pipeline = createLoaderPipeline(opts, assets);
@@ -149,6 +150,17 @@ module.exports = function (options) {
         transform: async function (code, id) {
             if (opts.extensions.indexOf(path.extname(id)) === -1) {
                 return;
+            }
+
+            if (opts.include) {
+                if (opts.include instanceof RegExp) {
+                    if (!id.match(opts.include)) {
+                        return;
+                    }
+                }
+                else {
+                    console.warn(`Option "include" should be Regexp instance, but isn't. So it will be ignored`)
+                }
             }
 
             let input = { code };
